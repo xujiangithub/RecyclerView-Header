@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+
+
+    <com.ydl.recycle.recyclerviewtest.widget.HeaderLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.ydl.recycle.recyclerviewtest.header.GoodPersimmonRefreshHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.ydl.recycle.recyclerviewtest.header.GoodPersimmonRefreshHeader>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </com.ydl.recycle.recyclerviewtest.widget.HeaderLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.ydl.recycle.recyclerviewtest.widget
 
 import android.content.Context
+import android.os.Handler
+import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -165,8 +167,30 @@ class HeaderLayout: LinearLayout, View.OnTouchListener {
     fun completeLoad() {
         if (isLoading) {
             isLoading = false
+            canPull = false  //不更新该状态的话会导致刷新完一次之后，无论是否在顶部，直接下拉会进行第二次刷新问题
             header?.completeLoad()
-            setTopMargin(0)
+            object: Thread() {
+                override fun run() {
+                    Thread.sleep(200)//休眠3秒
+                    /**
+                     * 要执行的操作
+                     */
+                    val msg = Message.obtain()
+                    msg.obj = true
+                    //返回主线程
+                    mLandler.sendMessage(msg)
+                }
+            }.start()
+        }
+    }
+
+    val mLandler = object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            msg?.let {
+                if (msg.obj == true) {
+                    setTopMargin(0)
+                }
+            }
         }
     }
 

@@ -171,10 +171,7 @@ class HeaderLayout: LinearLayout, View.OnTouchListener {
             header?.completeLoad()
             object: Thread() {
                 override fun run() {
-                    Thread.sleep(200)//休眠3秒
-                    /**
-                     * 要执行的操作
-                     */
+                    Thread.sleep(200)//休眠200毫秒秒
                     val msg = Message.obtain()
                     msg.obj = true
                     //返回主线程

@@ -44,6 +44,8 @@ class HeaderLayout: LinearLayout, View.OnTouchListener {
 
     private var hasDown: Boolean = false //用于解决一次动作中下滑再上滑隐藏header之后，第二次触摸事件down事件无法获取问题
 
+    private var isLoading = false //增加刷新控制，loading中再次下拉不会产生新的loading请求
+
     constructor(context: Context): super(context) {
         this.mContext = context
         initView()
@@ -92,7 +94,7 @@ class HeaderLayout: LinearLayout, View.OnTouchListener {
      */
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         countCanByPulled()
-        if (canPull) {
+        if (canPull && !isLoading) {
             val action = event.action
             if (action == MotionEvent.ACTION_DOWN) {
                 Log.e("action", "down")
@@ -118,8 +120,11 @@ class HeaderLayout: LinearLayout, View.OnTouchListener {
                  */
                 if (up_y!! - down_y!! > headerView!!.height * 2) {
                     setTopMargin(headerView!!.height)
-                    mListener?.onRefreshCallBack()
-                    header?.isLoading()
+                    if (!isLoading) {
+                        isLoading = true
+                        mListener?.onRefreshCallBack()
+                        header?.isLoading()
+                    }
                 }else {
                     setTopMargin(0)
                 }
@@ -158,8 +163,11 @@ class HeaderLayout: LinearLayout, View.OnTouchListener {
      * 外部设置刷新完成
      */
     fun completeLoad() {
-        header?.completeLoad()
-        setTopMargin(0)
+        if (isLoading) {
+            isLoading = false
+            header?.completeLoad()
+            setTopMargin(0)
+        }
     }
 
 

@@ -28,17 +28,13 @@ class StringAdapter(var mContext: Context, var list: ArrayList<String>): Recycle
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is StringHolder -> {
-                holder.txt!!.text = list[position]
             }
         }
     }
 
     inner class StringHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        var txt: TextView? = null
-
         init {
-            txt = view.findViewById(R.id.txt)
         }
 
     }

@@ -27,15 +27,18 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         for (i in 0..20) {list.add("test$i")}
 
         recycle.layoutManager = LinearLayoutManager(this)
-        recycle.adapter = StringAdapter(this, list)
+        var adapter = StringAdapter(this, list)
+        recycle.adapter = adapter
 
         header_layout.setListener(object : HeaderLayout.OnRefreshListener {
             override fun onRefreshCallBack() {
                 launch(Dispatchers.IO) {
 
-                    delay(2000)
+                    delay(3000)
 
                     withContext(Dispatchers.Main) {
+
+                        adapter.notifyDataSetChanged()
                         header_layout.completeLoad()
                     }
                 }

@@ -36,3 +36,35 @@
         state = TYPE_COMPLETE_LOADING
     }
 ```
+### xml中的布局方式
+```
+<!--最外层使用HeaderLayout-->
+<com.ydl.recycle.recyclerviewtest.widget.HeaderLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--第一个view为自定义的headerView-->
+        <com.ydl.recycle.recyclerviewtest.header.GoodPersimmonRefreshHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.ydl.recycle.recyclerviewtest.header.GoodPersimmonRefreshHeader>
+        <!--第二个view就是正常的recyclerview了-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </com.ydl.recycle.recyclerviewtest.widget.HeaderLayout>
+```
+
+### 代码中的使用
+```
+//设置一个刷新得回调监听
+header_layout.setListener(object : HeaderLayout.OnRefreshListener {
+            override fun onRefreshCallBack() {
+                //...一系列耗时操作之后调用
+                header_layout.completeLoad()
+            }
+        })
+```
+
